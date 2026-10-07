@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sumate al muro — III Jornadas de ESI · ISDICA</title>
+<link rel="icon" href="/img/logo-isdica.png" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="upload-top">
+    <img class="logo-chico" src="/img/logo-isdica.png" alt="ISDICA" />
+    <div class="eyebrow">#ESIenISDICA</div>
+    <h1>III Jornadas de Educación Sexual Integral</h1>
+    <div class="script">Educar en afectividad es cuidar la salud mental</div>
+  </header>
+
+  <div class="upload-wrap">
+    <div class="upload-card">
+      <h2>Sumate al muro</h2>
+      <p class="sub">Dejá un mensaje, una foto o un video corto. Aparece en la pantalla grande cuando el equipo lo aprueba.</p>
+
+      <div class="form-field">
+        <label for="mensajeInput">Tu mensaje <span class="opc">(podés mandarlo solo, sin foto)</span></label>
+        <textarea class="field" id="mensajeInput" placeholder="¿Qué te llevás de la jornada?" maxlength="300"></textarea>
+        <div class="contador"><span id="contador">0</span>/300</div>
+      </div>
+
+      <div class="form-field" style="margin-bottom:6px">
+        <label>Foto o video <span class="opc">(opcional · videos de hasta 30 segundos)</span></label>
+        <div class="upload-buttons">
+          <button class="btn" id="cameraBtn" type="button">📷 Sacar foto</button>
+          <button class="btn" id="galleryBtn" type="button">🖼️ Elegir de la galería</button>
+        </div>
+      </div>
+
+      <input type="file" id="cameraInput" accept="image/*,video/*" capture="environment" style="display:none" />
+      <input type="file" id="galleryInput" accept="image/*,video/*" multiple style="display:none" />
+
+      <div class="preview-grid" id="previewGrid"></div>
+
+      <div class="form-field" style="margin-top:14px">
+        <label for="nombreInput">Tu nombre <span class="opc">(opcional)</span></label>
+        <input class="field" id="nombreInput" placeholder="Si lo dejás vacío, se publica como Participante" maxlength="60" />
+      </div>
+
+      <p class="cuidado"><b>Cuidémonos entre todos:</b> si en la foto aparecen otras personas, pediles permiso antes de subirla. No se publican fotos del espacio de testeos.</p>
+
+      <button class="btn primary" id="subirBtn" type="button" style="width:100%;padding:14px;font-size:1rem">Enviar al muro</button>
+      <p class="status-msg" id="statusMsg" role="status"></p>
+    </div>
+  </div>
+
+  <script src="/js/feed-adapter.js"></script>
+  <script src="/js/subir.js"></script>
+</body>
+</html>

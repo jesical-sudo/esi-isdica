@@ -1,0 +1,25 @@
+{
+  "name": "muro-esi-isdica",
+  "version": "1.0.0",
+  "description": "Muro social en vivo de las III Jornadas de Educación Sexual Integral de ISDICA — #ESIenISDICA",
+  "private": true,
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^2.0.1",
+    "qrcode": "^1.5.3",
+    "sharp": "^0.35.4"
+  },
+  "overrides": {
+    "qs": "^6.16.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

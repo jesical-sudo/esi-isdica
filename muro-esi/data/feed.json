@@ -1,0 +1,7 @@
+[
+  { "id": "demo-1", "tipo": "texto", "url": null, "miniaturaUrl": null, "nombre": "Estudiante de 2° año", "mensaje": "Me llevo que hablar de lo que sentimos también es cuidarnos.", "hashtags": ["ESIenISDICA"], "estado": "publicado", "creadoEn": "2026-10-09T21:15:00.000Z" },
+  { "id": "demo-2", "tipo": "foto", "url": "/img/demo.svg", "miniaturaUrl": null, "nombre": "Taller de RCP", "mensaje": "¡Practicando primeros auxilios!", "hashtags": ["ESIenISDICA"], "estado": "publicado", "creadoEn": "2026-10-09T22:10:00.000Z" },
+  { "id": "demo-3", "tipo": "texto", "url": null, "miniaturaUrl": null, "nombre": "Participante", "mensaje": "Gracias por abrir estos espacios para toda la comunidad.", "hashtags": ["ESIenISDICA"], "estado": "publicado", "creadoEn": "2026-10-09T22:20:00.000Z" },
+  { "id": "demo-4", "tipo": "foto", "url": "/img/demo.svg", "miniaturaUrl": null, "nombre": "Profesorado de Física", "mensaje": "Presentes en las III Jornadas", "hashtags": ["ESIenISDICA"], "estado": "publicado", "creadoEn": "2026-10-09T22:25:00.000Z" },
+  { "id": "demo-5", "tipo": "texto", "url": null, "miniaturaUrl": null, "nombre": "Docente", "mensaje": "La ESI es un derecho y una herramienta para acompañar mejor.", "hashtags": ["ESIenISDICA"], "estado": "publicado", "creadoEn": "2026-10-09T22:40:00.000Z" }
+]

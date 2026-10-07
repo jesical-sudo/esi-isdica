@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Panel — Muro de las Jornadas de ESI · ISDICA</title>
+<link rel="icon" href="/img/logo-isdica.png" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- Login por PIN -->
+  <div class="login-wrap" id="loginWrap">
+    <img class="logo-chico" src="/img/logo-isdica.png" alt="ISDICA" />
+    <div class="eyebrow">Panel de organización</div>
+    <h1 style="margin:6px 0 0;font-size:1.5rem">Muro de las Jornadas de ESI</h1>
+    <input class="field" type="password" inputmode="numeric" id="pinInput" placeholder="PIN" maxlength="8" />
+    <button class="btn primary" id="loginBtn" style="width:100%">Entrar</button>
+    <p id="loginError" style="color:var(--error);font-size:.85rem;min-height:1.2em"></p>
+  </div>
+
+  <!-- Panel (oculto hasta loguearse) -->
+  <div class="admin-wrap" id="panelWrap" style="display:none">
+    <div class="eyebrow">Panel de organización</div>
+    <h1 style="margin:4px 0 18px;font-size:1.6rem">Muro de las Jornadas de ESI</h1>
+
+    <div class="admin-card">
+      <h2>Pendientes de aprobación</h2>
+      <div class="pending-list" id="pendingList">
+        <p class="eyebrow">No hay nada pendiente ahora.</p>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h2>Qué muestra el muro</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" data-fuente="invitados">Participantes</button>
+        <button class="btn" data-fuente="ejemplo">Ejemplo</button>
+        <button class="btn" data-fuente="instagram">Instagram</button>
+      </div>
+      <p class="ayuda">Esto cambia lo que ve la pantalla grande, al instante. “Ejemplo” sirve para probar el diseño antes del evento.</p>
+    </div>
+
+    <div class="admin-card">
+      <h2>Filtro por hashtag</h2>
+      <div style="display:flex;gap:8px">
+        <input class="field" id="hashtagInput" placeholder="Agregar hashtag (sin #)" />
+        <button class="btn" id="addHashtagBtn">Agregar</button>
+      </div>
+      <div class="chip-list" id="hashtagChips"></div>
+    </div>
+
+    <div class="admin-card">
+      <h2>Código QR para participantes</h2>
+      <button class="btn" id="copyLinkBtn" style="margin-bottom:8px; width:100%">Copiar link para participantes</button>
+      <button class="btn" id="downloadQrBtn" style="width:100%">Descargar QR (PNG)</button>
+    </div>
+
+    <!-- Copia automática a Google Photos -->
+    <div class="admin-card" id="gpCard">
+      <h2>Google Photos</h2>
+      <p id="gpEstado" style="margin:0 0 10px">Cargando…</p>
+      <div id="gpContadores" class="chip-list" style="margin:0 0 12px"></div>
+      <a class="btn primary" id="gpConectarBtn" href="/api/google/connect" style="display:none;width:100%;text-align:center;text-decoration:none">Conectar con Google Photos</a>
+      <button class="btn" id="gpSyncBtn" style="display:none;width:100%;margin-top:8px">Copiar lo que falta</button>
+      <p class="eyebrow" id="gpError" style="display:none;margin-top:10px;color:var(--error);text-transform:none;letter-spacing:0"></p>
+      <details id="gpAyuda" style="margin-top:12px;display:none">
+        <summary class="eyebrow" style="cursor:pointer">Dirección de redirección (para Google Cloud)</summary>
+        <div id="gpRedirect" style="word-break:break-all;font-family:monospace;font-size:.82rem;margin-top:8px;background:var(--celeste-2);padding:10px;border-radius:10px"></div>
+      </details>
+    </div>
+
+    <div class="admin-card">
+      <div class="toggle-row">
+        <label style="margin:0" for="notifyToggle">Avisarme cuando llega contenido nuevo</label>
+        <label class="switch">
+          <input type="checkbox" id="notifyToggle">
+          <span class="track"></span>
+        </label>
+      </div>
+      <p class="ayuda">Notificación solo en este dispositivo — útil si moderás desde tu celular.</p>
+    </div>
+
+    <div class="admin-card">
+      <h2>Moderación</h2>
+      <div class="toggle-row">
+        <label style="margin:0" for="approvalToggle">Requerir aprobación antes de publicar</label>
+        <label class="switch">
+          <input type="checkbox" id="approvalToggle">
+          <span class="track"></span>
+        </label>
+      </div>
+      <p class="ayuda">Viene activado: nada aparece en el muro hasta que lo aprobás arriba, en “Pendientes de aprobación”. El filtro de palabras bloqueadas solo cubre texto — no puede detectar contenido indebido en la imagen o el video en sí.</p>
+
+      <div style="margin-top:16px">
+        <label style="font-size:.85rem;font-weight:600" for="palabrasInput">Palabras bloqueadas (separadas por coma)</label>
+        <input class="field" id="palabrasInput" style="margin-top:6px" />
+      </div>
+      <div style="margin-top:12px">
+        <label style="font-size:.85rem;font-weight:600" for="nombresInput">Nombres bloqueados (separados por coma)</label>
+        <input class="field" id="nombresInput" style="margin-top:6px" />
+      </div>
+      <button class="btn" id="guardarPalabrasBtn" style="margin-top:12px">Guardar lista</button>
+    </div>
+
+    <div class="admin-card">
+      <h2>Publicado en el muro</h2>
+      <div class="hidden-list" id="publishedList">
+        <p class="eyebrow">Todavía no hay nada publicado.</p>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h2>Oculto</h2>
+      <p class="ayuda" style="margin:-6px 0 12px">“Ocultar” saca la publicación del muro y se puede restaurar. “Eliminar” la borra del todo, con su foto o video, y no se puede deshacer.</p>
+      <div class="hidden-list" id="hiddenList">
+        <p class="eyebrow">No hay nada oculto ahora.</p>
+      </div>
+    </div>
+
+    <button class="btn danger" id="logoutBtn" style="width:100%">Cerrar sesión</button>
+  </div>
+
+  <!-- Lightbox para ampliar fotos/videos pendientes u ocultos -->
+  <div class="lightbox-backdrop" id="lightboxBackdrop" style="display:none">
+    <div class="lightbox-card" id="lightboxCard"></div>
+  </div>
+
+  <script src="/js/feed-adapter.js"></script>
+  <script src="/js/admin.js"></script>
+
+  <script>
+  // Estado de la copia a Google Photos (se actualiza cada 10 s)
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    async function actualizar() {
+      if ($("panelWrap").style.display === "none") return;
+      let d;
+      try {
+        const r = await fetch("/api/google/status", { credentials: "same-origin" });
+        if (!r.ok) return;
+        d = await r.json();
+      } catch { return; }
+      $("gpRedirect").textContent = d.redirectUri;
+      $("gpAyuda").style.display = d.conectado ? "none" : "block";
+      $("gpConectarBtn").style.display = d.configurado && !d.conectado ? "block" : "none";
+      $("gpSyncBtn").style.display = d.conectado && d.sinCopiar > d.enCola ? "block" : "none";
+      if (!d.configurado) {
+        $("gpEstado").innerHTML = "Todavía no está configurado. Faltan <b>GOOGLE_CLIENT_ID</b> y <b>GOOGLE_CLIENT_SECRET</b> en Render → Environment.";
+      } else if (!d.conectado) {
+        $("gpEstado").textContent = "Listo para conectar: tocá el botón y elegí tu cuenta de Google.";
+      } else if (!d.guardadoEnRender) {
+        $("gpEstado").innerHTML = "✅ Conectado, pero <b>falta guardar</b> GOOGLE_REFRESH_TOKEN y GOOGLE_PHOTOS_ALBUM_ID en Render. Si el sitio se reinicia, se desconecta.";
+      } else {
+        $("gpEstado").textContent = "✅ Conectado. Cada foto y video publicado se copia solo al álbum.";
+      }
+      $("gpContadores").innerHTML = d.conectado
+        ? `<span class="chip">Copiados: <b>${d.subidos}</b></span><span class="chip">En camino: <b>${d.enCola}</b></span>` +
+          (d.conError ? `<span class="chip" style="color:var(--error)">Con error: <b>${d.conError}</b></span>` : "")
+        : "";
+      $("gpError").style.display = d.conectado && d.ultimoError && d.conError ? "block" : "none";
+      $("gpError").textContent = d.ultimoError ? "Último error: " + d.ultimoError : "";
+    }
+    $("gpSyncBtn").addEventListener("click", async () => {
+      $("gpSyncBtn").disabled = true;
+      await fetch("/api/google/sync", { method: "POST", credentials: "same-origin" }).catch(() => {});
+      $("gpSyncBtn").disabled = false;
+      actualizar();
+    });
+    actualizar();
+    setInterval(actualizar, 10000);
+    new MutationObserver(actualizar).observe($("panelWrap"), { attributes: true, attributeFilter: ["style"] });
+  })();
+  </script>
+</body>
+</html>

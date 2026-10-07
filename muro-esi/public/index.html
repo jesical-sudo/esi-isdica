@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Muro en vivo — III Jornadas de ESI · ISDICA</title>
+<meta name="description" content="Muro social en vivo de las III Jornadas de Educación Sexual Integral — #ESIenISDICA" />
+<link rel="icon" href="/img/logo-isdica.png" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="ticker" id="ticker"><span id="tickerText">#ESIenISDICA · Escaneá el QR y sumá tu foto o mensaje</span></div>
+
+  <header class="wall-header">
+    <div class="wall-marca">
+      <img class="wall-logo" src="/img/logo-isdica.png" alt="ISDICA" />
+      <div>
+        <div class="eyebrow" id="eventoLugar">ISDICA · 9 de octubre</div>
+        <h1 id="eventoNombre">III Jornadas de Educación Sexual Integral</h1>
+        <div class="lema" id="eventoLema">Educar en afectividad es cuidar la salud mental</div>
+      </div>
+    </div>
+    <div class="ahora" id="ahora" aria-live="polite">
+      <div class="eyebrow" id="ahoraEtiqueta">Jornada</div>
+      <div class="ahora-titulo" id="ahoraTitulo">9 de octubre · 17:30 a 22:00 h</div>
+      <div class="ahora-sigue" id="ahoraSigue"></div>
+    </div>
+  </header>
+
+  <nav class="wall-modes">
+    <button class="btn" data-mode="mosaico">Mosaico</button>
+    <button class="btn" data-mode="carrusel">Carrusel</button>
+    <button class="btn" data-mode="gigante">Gigante</button>
+    <button class="btn" id="pausarBtn" title="Pausar o seguir la rotación">Pausar</button>
+    <span class="eyebrow" id="rotacionInfo">cambia cada 7 s</span>
+  </nav>
+
+  <main id="wallContainer" class="grid"></main>
+
+  <div class="qr-float">
+    <img id="qrImg" alt="Código QR para sumar tu foto o mensaje" />
+    <div class="txt"><span class="script">¡Sumate al muro!</span>Escaneá y subí tu foto o mensaje<b id="qrHashtag">#ESIenISDICA</b></div>
+  </div>
+
+  <script src="/js/feed-adapter.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
